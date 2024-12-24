@@ -1,13 +1,19 @@
 class StudentTracker:
     def __init__(self):
+        """Initialize the tracker with an empty dictionary to store grades."""
         self.grades = {}
 
     def add_grade(self, subject, grade):
-        """Add a grade for a specific subject."""
+        """Add a grade for a specific subject.
+
+        Args:
+            subject (str): The subject name.
+            grade (float): The grade received, must be between 0 and 100.
+        """
         try:
-            grade = float(grade)
-            if 0 <= grade <= 100:
-                self.grades[subject] = grade
+            grade = float(grade)  # Convert grade to a float.
+            if 0 <= grade <= 100:  # Check if grade is within valid range.
+                self.grades[subject] = grade  # Add grade to dictionary.
                 print(f"Grade added for {subject}: {grade}")
             else:
                 print("Grade must be between 0 and 100.")
@@ -15,13 +21,24 @@ class StudentTracker:
             print("Invalid input. Please enter a number.")
 
     def calculate_average(self):
-        """Calculate the average grade."""
-        if self.grades:
-            return sum(self.grades.values()) / len(self.grades)
-        return 0
+        """Calculate the average grade of all subjects.
+
+        Returns:
+            float: The average grade, or 0 if no grades are entered.
+        """
+        if self.grades:  # Check if there are any grades.
+            return sum(self.grades.values()) / len(self.grades)  # Calculate average.
+        return 0  # Return 0 if no grades.
 
     def determine_letter_grade(self, average):
-        """Determine the letter grade based on the average."""
+        """Determine the letter grade based on the average grade.
+
+        Args:
+            average (float): The average grade.
+
+        Returns:
+            str: The corresponding letter grade (A-F).
+        """
         if average >= 90:
             return "A"
         elif average >= 80:
@@ -34,7 +51,14 @@ class StudentTracker:
             return "F"
 
     def calculate_gpa(self, average):
-        """Calculate GPA on a 4.0 scale."""
+        """Calculate GPA on a 4.0 scale based on the average grade.
+
+        Args:
+            average (float): The average grade.
+
+        Returns:
+            float: The GPA on a 4.0 scale.
+        """
         if average >= 90:
             return 4.0
         elif average >= 80:
@@ -47,15 +71,17 @@ class StudentTracker:
             return 0.0
 
     def display_report(self):
-        """Display the overall report."""
-        if not self.grades:
+        """Display the overall report of grades, average, letter grade, and GPA."""
+        if not self.grades:  # Check if there are any grades to display.
             print("No grades entered yet.")
             return
 
+        # Calculate statistics.
         average = self.calculate_average()
         letter_grade = self.determine_letter_grade(average)
         gpa = self.calculate_gpa(average)
 
+        # Display the report.
         print("\nStudent Grade Report")
         print("====================")
         for subject, grade in self.grades.items():
@@ -66,24 +92,33 @@ class StudentTracker:
 
 # Main program
 if __name__ == "__main__":
-    tracker = StudentTracker()
+    tracker = StudentTracker()  # Create an instance of StudentTracker.
 
     while True:
+        # Display menu options.
         print("\nStudent Tracker Menu")
         print("1. Add Grade")
         print("2. Display Report")
         print("3. Exit")
 
+        # Get user choice.
         choice = input("Enter your choice: ")
 
         if choice == "1":
+            # Add a grade.
             subject = input("Enter the subject: ")
             grade = input("Enter the grade (0-100): ")
             tracker.add_grade(subject, grade)
         elif choice == "2":
+            # Display the report.
             tracker.display_report()
         elif choice == "3":
+            # Exit the program.
             print("Exiting Student Tracker. Goodbye!")
             break
         else:
             print("Invalid choice. Please try again.")
+
+      
+      
+   
